@@ -67,6 +67,7 @@
                     TextColor="Blue">
                 </Label>
                 <StackLayout
+                    Orientation="Horizontal"
                 Margin="30,0">
                     <Button
                     BackgroundColor="Navy"
