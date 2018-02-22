@@ -18,7 +18,8 @@
                 Source="onu.png"
                 WidthRequest="50">
                 </Image>
-                <Grid>
+                <Grid
+                    VerticalOptions="CenterAndExpand">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2*"/>
@@ -48,14 +49,15 @@
                     Placeholder="Enter your password...">
                     </Entry>
                 </Grid>
-                <ActivityIndicator>
+                <ActivityIndicator
+                    VerticalOptions="CenterAndExpand">                    
                 </ActivityIndicator>
                 <StackLayout
                 Orientation="Horizontal">
                     <Label
                     HorizontalOptions="StartAndExpand"
                     Text="Remember me on this device"
-                    VerticalOptions="Center">
+                    VerticalOptions="CenterAndExpand">
                     </Label>
                     <Switch
                     HorizontalOptions="End">
@@ -68,7 +70,9 @@
                 </Label>
                 <StackLayout
                     Orientation="Horizontal"
-                Margin="30,0">
+                    HorizontalOptions="Center"
+                    Margin="30,0"
+                    VerticalOptions="CenterAndExpand">
                     <Button
                     BackgroundColor="Navy"
                     BorderRadius="23"
@@ -85,7 +89,8 @@
                     </Button>
                 </StackLayout>
                 <Grid
-                HeightRequest="46">
+                HeightRequest="46"
+                    VerticalOptions="EndAndExpand">
                     <Image
                     Grid.Row="0"
                     Grid.Column="0"
