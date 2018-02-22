@@ -5,11 +5,8 @@
     using System.Windows.Input;
     using Xamarin.Forms;
 
-    class LoginViewModel : INotifyPropertyChanged
+    class LoginViewModel : BaseViewModel
     {
-        #region Events
-        public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
         #region Attributes
         private string password;
         private bool isRunning;
@@ -23,6 +20,10 @@
         }
         public string Password
         {
+            get { return this.password; }
+            set { SetValue(ref this.password, value); }
+
+            /*
             get
             {
                 return this.password;
@@ -38,9 +39,13 @@
                         new PropertyChangedEventArgs(nameof(this.Password)));
                 }
             }
+            */
         }
         public bool IsRunning
         {
+            get { return this.isRunning; }
+            set { SetValue(ref this.isRunning, value); }
+            /*
             get
             {
                 return this.isRunning;
@@ -56,6 +61,7 @@
                         new PropertyChangedEventArgs(nameof(this.IsRunning)));
                 }
             }
+            */
         }
         public bool IsRemembered
         {
@@ -64,6 +70,9 @@
         }
         public bool IsEnabled
         {
+            get { return this.isEnabled; }
+            set { SetValue(ref this.isEnabled, value); }
+            /*
             get
             {
                 return this.isEnabled;
@@ -79,6 +88,7 @@
                         new PropertyChangedEventArgs(nameof(this.IsEnabled)));
                 }
             }
+            */
         }
         #endregion
         #region Constructors
