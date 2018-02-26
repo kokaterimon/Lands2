@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Lands2.Models
+﻿namespace Lands2.Models
 {
     using System;
     using Newtonsoft.Json;
-    class TokenResponse
+    public class TokenResponse
     {
         #region Properties
         [JsonProperty(PropertyName = "acces_token")]
@@ -16,16 +12,16 @@ namespace Lands2.Models
         public string TokenType { get; set; }
 
         [JsonProperty(PropertyName = "expires_in")]
-        public string ExpiresIn { get; set; }
+        public int ExpiresIn { get; set; }
 
         [JsonProperty(PropertyName = "username")]
         public string UserName { get; set; }
 
         [JsonProperty(PropertyName = "issued")]
-        public string isused { get; set; }
+        public DateTime Issused { get; set; }
 
         [JsonProperty(PropertyName = ".expires")]
-        public string Expires { get; set; }
+        public DateTime Expires { get; set; }
 
         [JsonProperty(PropertyName = "error_description")]
         public string ErrorDescription { get; set; }

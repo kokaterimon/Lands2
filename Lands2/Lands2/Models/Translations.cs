@@ -2,7 +2,7 @@
 
 namespace Lands2.Models
 {
-    class Translations
+    public class Translations
     {
         [JsonProperty(PropertyName = "de")]
         public string Germany { get; set; }
