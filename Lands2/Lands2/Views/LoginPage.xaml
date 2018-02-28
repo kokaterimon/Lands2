@@ -103,6 +103,9 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Source="facebook_logo.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoginFacebookCommand}"/>
+                        </Image.GestureRecognizers>
                     </Image>
                     <Image
                     Grid.Row="0"

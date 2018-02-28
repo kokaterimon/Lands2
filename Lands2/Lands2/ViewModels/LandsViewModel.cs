@@ -7,8 +7,8 @@
     using Xamarin.Forms;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
-    using System;
     using System.Linq;
+    using System;
 
     public class LandsViewModel : BaseViewModel
     {
@@ -16,15 +16,15 @@
         private ApiService apiService;
         #endregion
         #region Attributes
-        private ObservableCollection<Land> lands;
+        private ObservableCollection<LandItemViewModel> lands;
         private bool isRefreshing;
         private string filter;
-        private List<Land> landList;
+        private List<Land> landsList;
         
         #endregion
 
         #region properties
-        public ObservableCollection<Land> Lands //Por qué observable collection? Porque la voy a pintar en mi ListView
+        public ObservableCollection<LandItemViewModel> Lands //Por qué observable collection? Porque la voy a pintar en mi ListView
         {
             get { return this.lands; }
             set { SetValue(ref this.lands, value); }
@@ -86,23 +86,43 @@
             //No me interesa que list sea una variable local porque me complica la búsqueda (search)
             //var list = (List<Land>)response.Result; //como devuelve un objeto, tenemos que castearlo
             //Esto lo hacemos para mantener todo el tiempo en memoria la lista original
-            this.landList = (List<Land>)response.Result;
-            this.Lands = new ObservableCollection<Land>(this.landList);//Ahora pintamos la ObservableCollection en la vista
+            this.landsList = (List<Land>)response.Result;
+            this.Lands = new ObservableCollection<LandItemViewModel>(
+                this.ToLandItemViewModel());//Ahora pintamos la ObservableCollection en la vista
             this.IsRefreshing = false;
         }
-        private void Search()
+        #endregion
+        #region Methods
+        private IEnumerable<LandItemViewModel> ToLandItemViewModel()
         {
-            if(string.IsNullOrEmpty(this.Filter))//si el filtro esta vacío
+            return this.landsList.Select(l => new LandItemViewModel
             {
-                this.Lands = new ObservableCollection<Land>(this.landList); //volvemos a cargar la lista original
-            }
-            else
-            {
-                this.Lands = new ObservableCollection<Land>(this.landList.Where(
-                    l => l.Name.ToLower().Contains(this.Filter.ToLower()) ||
-                         l.Capital.ToLower().Contains(this.Filter.ToLower()))); //Lo que hay dentro del Where es la expresión Lambda. Puedo poner cualquier nombre; pero, utilizo una simple "l" porque estoy filtrando un objeto Land. El Where es una expresión sql de Linq
-            }
-        }
+                Alpha2Code = l.Alpha2Code,
+                Alpha3Code = l.Alpha3Code,
+                AltSpellings = l.AltSpellings,
+                Area = l.Area,
+                Borders = l.Borders,
+                CallingCodes = l.CallingCodes,
+                Capital = l.Capital,
+                Cioc = l.Cioc,
+                Currencies = l.Currencies,
+                Demonym = l.Demonym,
+                Flag = l.Flag,
+                Gini = l.Gini,
+                Languages = l.Languages,
+                Latlng = l.Latlng,
+                Name = l.Name,
+                NativeName = l.NativeName,
+                NumericCode = l.NumericCode,
+                Population = l.Population,
+                Region = l.Region,
+                RegionalBlocs = l.RegionalBlocs,
+                Subregion = l.Subregion,
+                Timezones = l.Timezones,
+                TopLevelDomain = l.TopLevelDomain,
+                Translations = l.Translations,
+            });
+        } 
         #endregion
         #region Commands
         public ICommand RefreshCommand
@@ -118,6 +138,21 @@
             get
             {
                 return new RelayCommand(Search);
+            }
+        }
+        private void Search()
+        {
+            if (string.IsNullOrEmpty(this.Filter))//si el filtro esta vacío
+            {
+                this.Lands = new ObservableCollection<LandItemViewModel>(
+                     this.ToLandItemViewModel());//Ahora pintamos la ObservableCollection en la vista //volvemos a cargar la lista original
+            }
+            else
+            {
+                this.Lands = new ObservableCollection<LandItemViewModel>(
+                    this.ToLandItemViewModel().Where(
+                    l => l.Name.ToLower().Contains(this.Filter.ToLower()) ||
+                         l.Capital.ToLower().Contains(this.Filter.ToLower()))); //Lo que hay dentro del Where es la expresión Lambda. Puedo poner cualquier nombre; pero, utilizo una simple "l" porque estoy filtrando un objeto Land. El Where es una expresión sql de Linq
             }
         }
         #endregion
