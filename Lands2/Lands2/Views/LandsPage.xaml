@@ -17,7 +17,7 @@
             <!--HasUnevenRows="true" ==> si voy a permitir que haya filas con diferente tamaño (para nombres pequeños y grandes) -->
             <!--IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}" ==>  ponerla en true cuando la lista esté cargando y en false cuando ya haya cargado -->
             <ListView
-                BackgroundColor="Silver"
+                
                 HasUnevenRows="true" 
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"                

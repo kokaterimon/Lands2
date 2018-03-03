@@ -19,7 +19,7 @@
         private ObservableCollection<LandItemViewModel> lands;
         private bool isRefreshing;
         private string filter;
-        private List<Land> landsList;
+        //private List<Land> landsList; //Voy a mover esto a la MainViewModel para que me quede disponible para otros proyectos.
         
         #endregion
 
@@ -86,7 +86,8 @@
             //No me interesa que list sea una variable local porque me complica la búsqueda (search)
             //var list = (List<Land>)response.Result; //como devuelve un objeto, tenemos que castearlo
             //Esto lo hacemos para mantener todo el tiempo en memoria la lista original
-            this.landsList = (List<Land>)response.Result;
+            //this.landsList = (List<Land>)response.Result;
+            MainViewModel.GetInstance().LandsList = (List<Land>)response.Result;
             this.Lands = new ObservableCollection<LandItemViewModel>(
                 this.ToLandItemViewModel());//Ahora pintamos la ObservableCollection en la vista
             this.IsRefreshing = false;
@@ -95,7 +96,8 @@
         #region Methods
         private IEnumerable<LandItemViewModel> ToLandItemViewModel()
         {
-            return this.landsList.Select(l => new LandItemViewModel
+            //return this.landsList.Select(l => new LandItemViewModel
+            return MainViewModel.GetInstance().LandsList.Select(l => new LandItemViewModel
             {
                 Alpha2Code = l.Alpha2Code,
                 Alpha3Code = l.Alpha3Code,

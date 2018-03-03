@@ -1,11 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Lands2.ViewModels
 {
+    using Models;
+    using System.Collections.Generic;
     class MainViewModel
     {
+        #region Propperties
+        public List<Land> LandsList
+        {
+            get;
+            set;
+        }
+      
+        #endregion
         #region ViewModels
         public LoginViewModel Login
         {
