@@ -1,13 +1,16 @@
 ﻿namespace Lands2.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
-    using System.ComponentModel;
     using System.Windows.Input;
+    using Services;
     using Views;
     using Xamarin.Forms;
 
     class LoginViewModel : BaseViewModel
     {
+        #region Services
+        private ApiService apiService; //esto podría haberlo creado en al región de los atributos
+        #endregion
         #region Attributes
         private string email;
         private string password;
@@ -96,11 +99,13 @@
         #region Constructors
         public LoginViewModel()
         {
+            this.apiService = new ApiService();
             this.IsRemembered = true;
             this.IsEnabled = true;
-
+            /*
             this.Email = "jzuluaga55@gmail.com";
             this.Password = "1234";
+            */
         }
         #endregion
         #region Commands
@@ -133,7 +138,7 @@
 
             this.IsRunning = true;
             this.IsEnabled = false;
-
+            /*
             if (this.Email != "jzuluaga55@gmail.com" || this.Password != "1234")
             {
                 this.IsRunning = false;
@@ -145,14 +150,64 @@
                 this.Password = string.Empty;
                 return;
             }
+            */
+
+            //Antes de consumir un servicios tengo que comprobar si hay conexión o no
+            var connection = await this.apiService.CheckConnection();
+            
+            if(!connection.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                "Error",
+                connection.Message,
+                //"Error 1",
+                "Accept");
+                return;
+            }
+            //Si hay conexión, tenemos que validar que nos genere el Token
+            var token = await this.apiService.GetToken(
+                "http://lands2api.azurewebsites.net",
+                this.Email,
+                this.Password);
+
+            if(token == null) //por si el internet se cayó un milisegundo después
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                "Error",
+                "Something was wrong, please try later.",
+                "Accept");
+                return;
+            }
+            //por si me equivoqué ingresando los datos
+            if(string.IsNullOrEmpty(token.AccessToken))
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                "Error",
+                token.ErrorDescription,
+                //"Error 2",
+                "Accept");
+                this.Password = string.Empty;
+                return;
+            }
+            //si llegó hasta aquí es porque todo ocurrió normalmente
+            var mainViewModel = MainViewModel.GetInstance(); //Éste es el apuntador
+            mainViewModel.Token = token;
+            //MainViewModel.GetInstance().Lands = new LandsViewModel(); //vamos a crear un APUNTADOR, para no estarlo llamando constantemente
+            mainViewModel.Lands = new LandsViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
             this.IsRunning = false;
             this.IsEnabled = true;
 
             this.Email = string.Empty;
             this.Password = string.Empty;
 
-            MainViewModel.GetInstance().Lands = new LandsViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
+ 
 
         }
         #endregion

@@ -5,7 +5,7 @@
     public class TokenResponse
     {
         #region Properties
-        [JsonProperty(PropertyName = "acces_token")]
+        [JsonProperty(PropertyName = "access_token")]
         public string AccessToken { get; set; }
 
         [JsonProperty(PropertyName = "token_type")]
@@ -18,7 +18,7 @@
         public string UserName { get; set; }
 
         [JsonProperty(PropertyName = "issued")]
-        public DateTime Issused { get; set; }
+        public DateTime Issued { get; set; }
 
         [JsonProperty(PropertyName = ".expires")]
         public DateTime Expires { get; set; }

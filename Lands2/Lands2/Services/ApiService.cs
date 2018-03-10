@@ -51,7 +51,7 @@
                     new StringContent(string.Format(
                         "grant_type=password&username={0}&password={1}",
                         username, password),
-                        Encoding.UTF8, "aplication/x-www-form-urlencoded"));
+                        Encoding.UTF8, "application/x-www-form-urlencoded"));
                 var resultJSON = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<TokenResponse>(
                     resultJSON);
