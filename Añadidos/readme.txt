@@ -7,3 +7,9 @@ ctor ==> crear coinstructor
 http://restcountries.eu/rest/v2/all ==> para consumir los recursos
 25.22
 Android Asset Studio -> Generic Item Generator ==> para generar íconos
+FFImageLoading ==> para la bandera (SVG)
+FFImageLoading.Transformations
+FFImageLoading.Svg.Forms
+Xamarin.FFImageLoading
+Xamarin.FFImageLoading.Forms
+
