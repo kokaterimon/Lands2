@@ -5,6 +5,7 @@
     using Services;
     using Views;
     using Xamarin.Forms;
+    using Helpers;
 
     class LoginViewModel : BaseViewModel
     {
@@ -122,9 +123,12 @@
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
+                    Languages.EmailValidation,
+                    Languages.Accept
+                    /*"Error",
                     "You must enter an email",
-                    "Accept");
+                    "Accept"*/ );
                 return;
             }
             if (string.IsNullOrEmpty(this.Password))
@@ -161,8 +165,7 @@
                 this.IsEnabled = true;
                 await Application.Current.MainPage.DisplayAlert(
                 "Error",
-                connection.Message,
-                //"Error 1",
+                connection.Message,                
                 "Accept");
                 return;
             }
@@ -189,8 +192,7 @@
                 this.IsEnabled = true;
                 await Application.Current.MainPage.DisplayAlert(
                 "Error",
-                token.ErrorDescription,
-                //"Error 2",
+                token.ErrorDescription,                
                 "Accept");
                 this.Password = string.Empty;
                 return;
