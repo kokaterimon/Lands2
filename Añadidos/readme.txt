@@ -13,3 +13,4 @@ FFImageLoading.Svg.Forms
 Xamarin.FFImageLoading
 Xamarin.FFImageLoading.Forms
 
+EntityFramework

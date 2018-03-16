@@ -1,7 +1,7 @@
-﻿namespace Lands2.Models
+﻿namespace Lands2.Domain
 {
     public class Response
-    {       
+    {
         public bool IsSuccess
         {
             get;
