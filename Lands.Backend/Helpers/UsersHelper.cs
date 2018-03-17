@@ -1,4 +1,5 @@
 ﻿//para matricular usuarios y roles en la aplicación
+//Aquí tenemos métodos que nos permitirán crear los usuarios
 namespace Lands.Backend.Helpers
 {
     using Lands.Backend.Models;
@@ -59,7 +60,7 @@ namespace Lands.Backend.Helpers
                 CreateUserASP(email, "Admin", password);
                 return;
             }
-            userManager.AddToRole(userASP.Id, "Admin");
+            //userManager.AddToRole(userASP.Id, "Admin");
         }
 
 
