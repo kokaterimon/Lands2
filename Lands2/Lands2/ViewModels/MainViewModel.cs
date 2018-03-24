@@ -2,7 +2,10 @@
 namespace Lands2.ViewModels
 {
     using Models;
+    using Helpers;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+
     class MainViewModel
     {
         #region Propperties
@@ -12,6 +15,11 @@ namespace Lands2.ViewModels
             set;
         }
         public TokenResponse Token
+        {
+            get;
+            set;
+        }
+        public ObservableCollection<MenuItemViewModel> Menus
         {
             get;
             set;
@@ -39,6 +47,7 @@ namespace Lands2.ViewModels
         {
             instance = this;
             this.Login = new LoginViewModel();
+            this.LoadMenu();
         }
         #endregion
         #region Singleton
@@ -52,6 +61,31 @@ namespace Lands2.ViewModels
             }
             return instance;
         }
+        #endregion
+
+        #region Methods
+        private void LoadMenu()
+        {
+            this.Menus = new ObservableCollection<MenuItemViewModel>();
+            this.Menus.Add(new MenuItemViewModel
+            {
+                Icon = "ic_settings",
+                PageName = "MyProfilePage", //suponiendo que en el futuro habrá una página MyProfilePage
+                Title = Languages.MyProfile
+            });
+            this.Menus.Add(new MenuItemViewModel
+            {
+                Icon = "ic_insert_chart",
+                PageName = "StatisticsPage", //suponiendo que en el futuro habrá una página MyProfilePage
+                Title = Languages.Statistics
+            });
+            this.Menus.Add(new MenuItemViewModel
+            {
+                Icon = "ic_exit_to_app",
+                PageName = "LoginPage", //suponiendo que en el futuro habrá una página MyProfilePage
+                Title = Languages.LogOut
+            });
+        } 
         #endregion
     }
 }

@@ -129,10 +129,19 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Logout</value>
+  </data>
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>My profile</value>
+  </data>
   <data name="Rememberme" xml:space="preserve">
     <value>Remember me on this device.</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
   </data>
 </root>
