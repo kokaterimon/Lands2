@@ -129,6 +129,9 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
   <data name="Rememberme" xml:space="preserve">
     <value>Remember me on this device.</value>
   </data>

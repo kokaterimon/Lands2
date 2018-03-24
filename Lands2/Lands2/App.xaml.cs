@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
-
-namespace Lands2
+﻿namespace Lands2
 {
     using Xamarin.Forms;
     using Lands2.Views;
@@ -23,7 +16,8 @@ namespace Lands2
         {
             InitializeComponent();
             //MainPage = new LoginPage();
-            this.MainPage = new NavigationPage(new LoginPage());
+            this.MainPage = new MasterPage();
+            //this.MainPage = new NavigationPage(new LoginPage());
         }
         #endregion
         #region Methods
