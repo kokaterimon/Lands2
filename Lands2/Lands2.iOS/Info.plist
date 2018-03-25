@@ -57,5 +57,10 @@
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>NSPhotoLibraryUsageDesccription</string>
+	<key>NSPhotoLibraryUsageDesccription</key>
+	<string>Picture Picker uses photo library</string>
 </dict>
 </plist>
