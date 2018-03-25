@@ -4,7 +4,7 @@
              xmlns:i18n="clr-namespace:Lands2.Helpers"
              x:Class="Lands2.Views.LoginPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="Login">
+             Title="{i18n:Translate Login}">
     <ContentPage.Content>
         <ScrollView
             BindingContext="{Binding Login}">
@@ -90,6 +90,7 @@
                     <Button
                     BackgroundColor="Purple"
                     BorderRadius="23"
+                    Command="{Binding RegisterCommand}"
                     HeightRequest="46"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                     Text="Register"

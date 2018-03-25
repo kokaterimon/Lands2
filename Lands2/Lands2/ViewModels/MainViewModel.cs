@@ -45,6 +45,11 @@ namespace Lands2.ViewModels
             get;
             set;
         }
+        public RegisterViewModel Register
+        {
+            get;
+            set;
+        }
         #endregion
         #region Constructors
         public MainViewModel()
