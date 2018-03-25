@@ -2,6 +2,9 @@
 {
     using Xamarin.Forms;
     using Lands2.Views;
+    using Helpers;
+    using Lands2.ViewModels;
+
     public partial class App : Application
 	{
         #region Properties
@@ -15,9 +18,21 @@
         public App()
         {
             InitializeComponent();
-            //MainPage = new LoginPage();
-            //this.MainPage = new MasterPage();
-            this.MainPage = new NavigationPage(new LoginPage());
+            if (string.IsNullOrEmpty(Settings.Token))
+            {
+                //MainPage = new LoginPage();
+                //this.MainPage = new MasterPage();
+                this.MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                var mainViewModel = MainViewModel.GetInstance();
+                mainViewModel.Token = Settings.Token;
+                mainViewModel.TokenType = Settings.TokenType;
+                mainViewModel.Lands = new LandsViewModel();
+                this.MainPage = new MasterPage();
+            }
+            
         }
         #endregion
         #region Methods

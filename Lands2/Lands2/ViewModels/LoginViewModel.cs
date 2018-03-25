@@ -103,10 +103,9 @@
             this.apiService = new ApiService();
             this.IsRemembered = true;
             this.IsEnabled = true;
-            /*
-            this.Email = "jzuluaga55@gmail.com";
-            this.Password = "1234";
-            */
+            
+            this.Email = "brusssli@hotmail.com";
+            this.Password = "deutschland00";            
         }
         #endregion
         #region Commands
@@ -199,18 +198,22 @@
             }
             //si llegó hasta aquí es porque todo ocurrió normalmente
             var mainViewModel = MainViewModel.GetInstance(); //Éste es el apuntador
-            mainViewModel.Token = token;
+            mainViewModel.Token = token.AccessToken;
+            mainViewModel.TokenType = token.TokenType;
+            if (this.IsRemembered)
+            {
+                Settings.Token = token.AccessToken;
+                Settings.TokenType = token.TokenType;
+            }
             //MainViewModel.GetInstance().Lands = new LandsViewModel(); //vamos a crear un APUNTADOR, para no estarlo llamando constantemente
             mainViewModel.Lands = new LandsViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
+            //await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
+            Application.Current.MainPage = new MasterPage(); //esta es otra forma de navegar. La MainPage la cambiamos en tiempo de ejecución
             this.IsRunning = false;
             this.IsEnabled = true;
 
             this.Email = string.Empty;
             this.Password = string.Empty;
-
- 
-
         }
         #endregion
     }
