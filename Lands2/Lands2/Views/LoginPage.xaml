@@ -9,7 +9,7 @@
         <ScrollView
             BindingContext="{Binding Login}">
             <StackLayout
-                Padding="5,20,5,5">
+                Padding="5,0,5,5">
                 <Label 
                 FontAttributes="Bold"
                 FontSize="Large"
@@ -18,7 +18,7 @@
                 </Label>
                 <Image
                 Source="onu.png"
-                WidthRequest="50">
+                    WidthRequest="100">
                 </Image>
                 <Grid
                     VerticalOptions="CenterAndExpand">
@@ -54,8 +54,7 @@
                     </Entry>
                 </Grid>
                 <ActivityIndicator
-                    IsRunning="{Binding isRunning, Mode=TwoWay}"
-                    VerticalOptions="CenterAndExpand">                    
+                    IsRunning="{Binding isRunning, Mode=TwoWay}">                    
                 </ActivityIndicator>
                 <StackLayout
                 Orientation="Horizontal">
