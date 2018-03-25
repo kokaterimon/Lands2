@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Lands2.Domain
@@ -13,5 +15,7 @@ namespace Lands2.Domain
         [Index("UserType_Name_Index", IsUnique = true)] //para evitar que haya dos UserType iguales \\Nombre de tabla, Nombre de campo y sufijo index (es una estándar personal del profe)        
         public string Name { get; set; } //nombre del usuario
 
+        [JsonIgnore]
+        public virtual ICollection<User> Users { get; set; }
     }
 }
