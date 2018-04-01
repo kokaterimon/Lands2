@@ -9,5 +9,9 @@ namespace Lands2.Domain
         {
 
         }
+
+        public System.Data.Entity.DbSet<Lands2.Domain.User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<Lands2.Domain.UserType> UserTypes { get; set; }
     }
 }

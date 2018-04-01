@@ -79,7 +79,7 @@ namespace Lands2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Touch the image to chage it.
+        ///   Looks up a localized string similar to Touch the image to change it.
         /// </summary>
         public static string ChangeImage {
             get {

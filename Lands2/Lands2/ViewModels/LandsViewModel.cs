@@ -15,6 +15,7 @@
         #region Services
         private ApiService apiService;
         #endregion
+
         #region Attributes
         private ObservableCollection<LandItemViewModel> lands;
         private bool isRefreshing;
@@ -69,8 +70,9 @@
                 await Application.Current.MainPage.Navigation.PopAsync(); //un back por código
                 return;
             }
+            var apiLands = Application.Current.Resources["APILands"].ToString();
             var response = await this.apiService.GetList<Land>(
-                "http://restcountries.eu",
+                apiLands,
                 "/rest",
                 "/v2/all");
             if(!response.IsSuccess)
@@ -93,6 +95,7 @@
             this.IsRefreshing = false;
         }
         #endregion
+
         #region Methods
         private IEnumerable<LandItemViewModel> ToLandItemViewModel()
         {
@@ -126,6 +129,7 @@
             });
         } 
         #endregion
+
         #region Commands
         public ICommand RefreshCommand
         {

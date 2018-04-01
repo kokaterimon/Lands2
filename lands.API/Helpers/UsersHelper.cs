@@ -1,6 +1,4 @@
-﻿//para matricular usuarios y roles en la aplicación
-//Aquí tenemos métodos que nos permitirán crear los usuarios
-namespace Lands.Backend.Helpers
+﻿namespace lands.API.Helpers
 {
     using Models;
     using Microsoft.AspNet.Identity;
@@ -8,16 +6,18 @@ namespace Lands.Backend.Helpers
     using System;
     using System.Threading.Tasks;
     using System.Web.Configuration;
+    using Lands2.Domain;
+
     public class UsersHelper : IDisposable
     {
         private static ApplicationDbContext userContext = new ApplicationDbContext();
-        private static LocalDataContext db = new LocalDataContext();
+        private static DataContext db = new DataContext();
 
         public static bool DeleteUser(string userName, string roleName)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
             var userASP = userManager.FindByEmail(userName);
-            if(userASP == null)
+            if (userASP == null)
             {
                 return false;
             }
@@ -43,7 +43,7 @@ namespace Lands.Backend.Helpers
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
             //Check to see if Role Exists, if not create it
-            if(!roleManager.RoleExists(roleName))
+            if (!roleManager.RoleExists(roleName))
             {
                 roleManager.Create(new IdentityRole(roleName));
             }
@@ -55,7 +55,7 @@ namespace Lands.Backend.Helpers
             var email = WebConfigurationManager.AppSettings["AdminUser"];
             var password = WebConfigurationManager.AppSettings["AdminPassWord"];
             var userASP = userManager.FindByName(email);
-            if(userASP == null)
+            if (userASP == null)
             {
                 CreateUserASP(email, "Admin", password);
                 return;
@@ -66,9 +66,9 @@ namespace Lands.Backend.Helpers
 
         public static void CreateUserASP(string email, string roleName)
         {
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));            
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
             var userASP = userManager.FindByEmail(email);
-            if(userASP  == null)
+            if (userASP == null)
             {
                 userASP = new ApplicationUser
                 {
@@ -99,7 +99,7 @@ namespace Lands.Backend.Helpers
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
             var userASP = userManager.FindByEmail(email);
-            if(userASP == null)
+            if (userASP == null)
             {
                 return;
             }

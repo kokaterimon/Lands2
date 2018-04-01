@@ -170,8 +170,9 @@
                 return;
             }
             //Si hay conexión, tenemos que validar que nos genere el Token
+            var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
             var token = await this.apiService.GetToken(
-                "http://lands2api.azurewebsites.net",
+                apiSecurity,
                 this.Email,
                 this.Password);
 
