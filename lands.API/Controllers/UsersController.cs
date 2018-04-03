@@ -72,7 +72,7 @@
 
         // POST: api/Users
         [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> PostUser(User user)
+        public async Task<IHttpActionResult> PostUser(UserView view)
         {
             //if (!ModelState.IsValid)
             //{
@@ -80,9 +80,9 @@
             //}
 
             //BR: Ahora verificamos si el usuario tenìa o no foto
-            if (user.ImageArray != null && user.ImageArray.Length > 0)
+            if (view.ImageArray != null && view.ImageArray.Length > 0)
             {
-                var stream = new MemoryStream(user.ImageArray);
+                var stream = new MemoryStream(view.ImageArray);
                 var guid = Guid.NewGuid().ToString();
                 var file = string.Format("{0}.jpg", guid);
                 var folder = "~/Content/Images";
@@ -90,14 +90,30 @@
                 var response = FilesHelper.UploadPhoto(stream, folder, file);
                 if (response)
                 {
-                    user.ImagePath = fullPath;
+                    view.ImagePath = fullPath;
                 }
             }
 
+            var user = this.ToUser(view);
             db.Users.Add(user);
             await db.SaveChangesAsync();
-            UsersHelper.CreateUserASP(user.Email, "User", user.Password);
-            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
+            UsersHelper.CreateUserASP(view.Email, "User", view.Password);
+            return CreatedAtRoute("DefaultApi", new { id = view.UserId }, view);
+        }
+
+        private User ToUser(UserView view)
+        {
+            return new User
+            {
+                Email = view.Email,
+                FirstName = view.FirstName,
+                ImagePath = view.ImagePath,
+                LastName = view.LastName,
+                Telephone = view.Telephone,
+                UserId = view.UserId,
+                UserType = view.UserType,
+                UserTypeId = view.UserTypeId,
+            };
         }
 
         // DELETE: api/Users/5

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lands2.Domain
+﻿namespace Lands2.Domain
 {
-    class UserView
+    using System.ComponentModel.DataAnnotations.Schema;
+    [NotMapped]
+    public class UserView : User
     {
+        public byte[] ImageArray { get; set; }
+       
+        public string Password { get; set; }
     }
 }
