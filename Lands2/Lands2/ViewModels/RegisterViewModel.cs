@@ -184,7 +184,7 @@
             this.IsEnabled = false;
 
             var checkConnetion = await this.apiService.CheckConnection();
-            if (!checkConnetion.IsSuccess)
+            /*if (!checkConnetion.IsSuccess)
             {
                 this.IsRunning = false;
                 this.IsEnabled = true;
@@ -193,7 +193,7 @@
                     checkConnetion.Message,
                     Languages.Accept);
                 return;
-            }
+            }*/
 
             byte[] imageArray = null;
             if (this.file != null)
