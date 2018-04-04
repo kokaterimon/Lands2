@@ -198,10 +198,18 @@
                 this.Password = string.Empty;
                 return;
             }
+
             //si llegó hasta aquí es porque todo ocurrió normalmente
+            var user = await this.apiService.GetUserByEmail(
+                apiSecurity,
+                "/api",
+                "/Users/GetUserByEmail",
+                this.Email);
+
             var mainViewModel = MainViewModel.GetInstance(); //Éste es el apuntador
             mainViewModel.Token = token.AccessToken;
             mainViewModel.TokenType = token.TokenType;
+            mainViewModel.User = user; //BR: es igual al objeto user que se logeó
             if (this.IsRemembered)
             {
                 Settings.Token = token.AccessToken;

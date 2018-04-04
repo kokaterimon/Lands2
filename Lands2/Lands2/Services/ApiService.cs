@@ -334,6 +334,45 @@
                 };
             }
         }
+
+        public async Task<User> GetUserByEmail(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string email)
+        {
+            try
+            {
+                var model = new UserRequest
+                {
+                    Email = email,
+                };
+
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(urlBase);
+                var url = string.Format("{0}{1}", servicePrefix, controller); //servicePrefix = "/api" ; controller = "/Users/GetUserByEmail"
+                var response = await client.PostAsync(url, content);
+
+                if(!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                //var newRecord = JsonConvert.DeserializeObject<User>(result);
+                return JsonConvert.DeserializeObject<User>(result);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public async Task<Response> Put<T>( //para cuando yo quiera modificar un país
             string urlBase,
             string servicePrefix,

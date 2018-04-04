@@ -5,6 +5,7 @@ namespace Lands2.ViewModels
     using Helpers;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using Domain;
 
     class MainViewModel
     {
@@ -28,6 +29,13 @@ namespace Lands2.ViewModels
             get;
             set;
         }
+
+        public User User
+        {
+            get;
+            set;
+        }
+
         #endregion
         #region ViewModels
         public LoginViewModel Login

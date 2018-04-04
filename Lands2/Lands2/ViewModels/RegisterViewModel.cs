@@ -202,7 +202,7 @@
             }
 
             //var user = new User
-            var user = new UserView
+            var user = new User
             {
                 Email = this.Email,
                 FirstName = this.FirstName,

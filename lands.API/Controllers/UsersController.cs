@@ -11,7 +11,9 @@
     using Helpers;
     using System.IO;
     using System;
+    using Newtonsoft.Json.Linq;
 
+    [RoutePrefix("api/Users")] //puesto que hicimos el cambio del método de get a post, al hacer todo eso, es necesario que routeemos elmétodo
     public class UsersController : ApiController
     {
         private DataContext db = new DataContext();
@@ -22,11 +24,26 @@
             return db.Users;
         }
 
-        // GET: api/Users/5
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> GetUser(int id)
+        // GET: api/Users/ange@gmail.com
+        //[ResponseType(typeof(User))]
+        [HttpPost] //BR: cambiamos la naturaleza del método a un post
+        [Route("GetUserByEmail")]
+        //public async Task<IHttpActionResult> GetUser(string email)
+        public async Task<IHttpActionResult> GetUserByEmail(JObject form)
         {
-            User user = await db.Users.FindAsync(id);
+
+            var email = string.Empty;
+            dynamic jsonObject = form;
+            try
+            {
+                email = jsonObject.Email.Value;
+            }
+            catch
+            {
+                return BadRequest("Missing parameter.");
+            }
+
+            var user = await db.Users.Where(u => u.Email.ToLower() == email.ToLower()).FirstOrDefaultAsync();
             if (user == null)
             {
                 return NotFound();
@@ -100,22 +117,22 @@
             UsersHelper.CreateUserASP(user.Email, "User", user.Password);
             return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
-/*
-        private User ToUser(UserView view)
-        {
-            return new User
-            {
-                Email = view.Email,
-                FirstName = view.FirstName,
-                ImagePath = view.ImagePath,
-                LastName = view.LastName,
-                Telephone = view.Telephone,
-                UserId = view.UserId,
-                UserType = view.UserType,
-                UserTypeId = view.UserTypeId,
-            };
-        }
-*/
+        /*
+                private User ToUser(UserView view)
+                {
+                    return new User
+                    {
+                        Email = view.Email,
+                        FirstName = view.FirstName,
+                        ImagePath = view.ImagePath,
+                        LastName = view.LastName,
+                        Telephone = view.Telephone,
+                        UserId = view.UserId,
+                        UserType = view.UserType,
+                        UserTypeId = view.UserTypeId,
+                    };
+                }
+        */
         // DELETE: api/Users/5
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> DeleteUser(int id)
