@@ -12,6 +12,7 @@
     {
         #region Services
         private ApiService apiService; //esto podría haberlo creado en al región de los atributos
+        private DataService dataService;
         #endregion
         #region Attributes
         private string email;
@@ -102,11 +103,13 @@
         public LoginViewModel()
         {
             this.apiService = new ApiService();
+            this.dataService = new DataService();
+
             this.IsRemembered = true;
             this.IsEnabled = true;
             
-            this.Email = "brusssli@hotmail.com";
-            this.Password = "deutschland00";            
+            //this.Email = "brusssli@hotmail.com";
+            //this.Password = "deutschland00";            
         }
         #endregion
         #region Commands
@@ -206,14 +209,17 @@
                 "/Users/GetUserByEmail",
                 this.Email);
 
+            var userLocal = Converter.ToUserLocal(user);
+
             var mainViewModel = MainViewModel.GetInstance(); //Éste es el apuntador
             mainViewModel.Token = token.AccessToken;
             mainViewModel.TokenType = token.TokenType;
-            mainViewModel.User = user; //BR: es igual al objeto user que se logeó
+            mainViewModel.User = userLocal; //BR: es igual al objeto user que se logeó
             if (this.IsRemembered)
             {
                 Settings.Token = token.AccessToken;
                 Settings.TokenType = token.TokenType;
+                this.dataService.DeleteAllAndInsert(userLocal);
             }
             //MainViewModel.GetInstance().Lands = new LandsViewModel(); //vamos a crear un APUNTADOR, para no estarlo llamando constantemente
             mainViewModel.Lands = new LandsViewModel();

@@ -30,7 +30,7 @@ namespace Lands2.ViewModels
             set;
         }
 
-        public User User
+        public UserLocal User
         {
             get;
             set;
@@ -83,25 +83,27 @@ namespace Lands2.ViewModels
         #region Methods
         private void LoadMenu()
         {
-            this.Menus = new ObservableCollection<MenuItemViewModel>();
-            this.Menus.Add(new MenuItemViewModel
+            this.Menus = new ObservableCollection<MenuItemViewModel>
             {
-                Icon = "ic_settings",
-                PageName = "MyProfilePage", //suponiendo que en el futuro habrá una página MyProfilePage
-                Title = Languages.MyProfile
-            });
-            this.Menus.Add(new MenuItemViewModel
-            {
-                Icon = "ic_insert_chart",
-                PageName = "StatisticsPage", //suponiendo que en el futuro habrá una página MyProfilePage
-                Title = Languages.Statistics
-            });
-            this.Menus.Add(new MenuItemViewModel
-            {
-                Icon = "ic_exit_to_app",
-                PageName = "LoginPage", //suponiendo que en el futuro habrá una página MyProfilePage
-                Title = Languages.LogOut
-            });
+                new MenuItemViewModel
+                {
+                    Icon = "ic_settings",
+                    PageName = "MyProfilePage", //suponiendo que en el futuro habrá una página MyProfilePage
+                    Title = Languages.MyProfile
+                },
+                new MenuItemViewModel
+                {
+                    Icon = "ic_insert_chart",
+                    PageName = "StatisticsPage", //suponiendo que en el futuro habrá una página MyProfilePage
+                    Title = Languages.Statistics
+                },
+                new MenuItemViewModel
+                {
+                    Icon = "ic_exit_to_app",
+                    PageName = "LoginPage", //suponiendo que en el futuro habrá una página MyProfilePage
+                    Title = Languages.LogOut
+                }
+            };
         } 
         #endregion
     }

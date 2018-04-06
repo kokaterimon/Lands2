@@ -3,7 +3,9 @@
     using Xamarin.Forms;
     using Lands2.Views;
     using Helpers;
-    using Lands2.ViewModels;
+    using ViewModels;
+    using Services;
+    using Models;
 
     public partial class App : Application
 	{
@@ -26,11 +28,15 @@
             }
             else
             {
+                var dataService = new DataService();
+                var user = dataService.First<UserLocal>(false);
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = Settings.Token;
                 mainViewModel.TokenType = Settings.TokenType;
+                mainViewModel.User = user; //BR: igual al user que acabé de recuperar de base de datos
                 mainViewModel.Lands = new LandsViewModel();
                 this.MainPage = new MasterPage();
+                //Application.Current.MainPage = new MasterPage(); //BR: Esto lo vi asi y simplemente lo copié y sustituí por el anterior
             }
             
         }
